@@ -16,4 +16,5 @@
     <string name="uname">Name</string>
     <string name="sinw">SIGN INTO</string>
     <string name="supw">REGISTER WITH</string>
+    <string name="link">http://192.168.43.245/CharotarExplore/</string>
 </resources>

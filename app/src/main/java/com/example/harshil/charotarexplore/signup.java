@@ -1,12 +1,15 @@
 package com.example.harshil.charotarexplore;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,6 +19,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +39,8 @@ public class signup extends AppCompatActivity {
     private Button signup;
     private TextView toIn;
     private AlertDialog exitDialog;
+    private String user_name, contact_number, password, country_code;
+    private ProgressDialog signingup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +98,10 @@ public class signup extends AppCompatActivity {
             }
         });
 
+        signingup = new ProgressDialog(signup.this);
+        signingup.setTitle("Signup");
+        signingup.setMessage("Registration in progress...");
+        signingup.setCancelable(false);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +116,11 @@ public class signup extends AppCompatActivity {
                 } else if (!isPasswordMatching(passwd.getText().toString(), cpasswd.getText().toString())) {
                     cpasswd.setError("Password does not match.");
                 } else {
-                    Toast.makeText(signup.this, "Under construction.", Toast.LENGTH_SHORT).show();
+                    user_name = name.getText().toString();
+                    contact_number = mobile.getText().toString();
+                    password = passwd.getText().toString();
+                    country_code = getCountryCode();
+                    signupapi();
                 }
             }
         });
@@ -141,8 +166,61 @@ public class signup extends AppCompatActivity {
         return true;
     }
 
+    private String getCountryCode() {
+        String country;
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        country = telephonyManager.getSimCountryIso().toUpperCase();
+        String[] codes = getResources().getStringArray(R.array.country_codes);
+        for (int i = 0; i < codes.length; i++) {
+            String[] c = codes[i].split(",");
+            if (c[1].trim().equals(country)) {
+                return c[0];
+            }
+        }
+        return "";
+    }
+
     @Override
     public void onBackPressed() {
         exitDialog.show();
+    }
+
+    private void signupapi() {
+        signingup.show();
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = getResources().getString(R.string.link) + "signup";
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                signingup.dismiss();
+                try {
+                    JSONObject result = new JSONObject(response);
+                    if (result.getString("status").equals("1")) {
+                        Toast.makeText(signup.this, "Registration successfull.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(signup.this, result.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VolleyError", error.toString());
+                signingup.dismiss();
+                Toast.makeText(signup.this, "Something is wrong.", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("name", user_name);
+                MyData.put("country", country_code);
+                MyData.put("number", contact_number);
+                MyData.put("password", password);
+                return MyData;
+            }
+        };
+        requestQueue.add(MyStringRequest);
     }
 }
