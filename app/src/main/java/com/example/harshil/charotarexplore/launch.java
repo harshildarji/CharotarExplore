@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 public class launch extends BaseLocationActivity {
+    cached cached = new cached();
     private static final String BROADCAST = "com.example.harshil.charotarexplore.android.action.broadcast";
     private ProgressBar loading;
     private LinearLayout sign;
@@ -147,7 +148,11 @@ public class launch extends BaseLocationActivity {
             unregisterReceiver(broadcastReceiver);
             loading.setVisibility(View.GONE);
             sign.setVisibility(View.VISIBLE);
-            sign.animate().alpha(1f).setDuration(500);
+            if (cached.getUser_id(getApplicationContext()).equals("")) {
+                sign.animate().alpha(1f).setDuration(500);
+            } else {
+                startActivity(new Intent(launch.this, home.class));
+            }
         }
     }
 

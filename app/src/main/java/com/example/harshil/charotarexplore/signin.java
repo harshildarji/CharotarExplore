@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class signin extends AppCompatActivity {
+    cached cached = new cached();
     private EditText mobile, passwd;
     private Button signin;
     private TextView toUp;
@@ -146,7 +147,13 @@ public class signin extends AppCompatActivity {
                 try {
                     JSONObject result = new JSONObject(response);
                     if (result.getString("status").equals("1")) {
-                        Toast.makeText(signin.this, "Signin successfull.", Toast.LENGTH_SHORT).show();
+                        JSONObject user_details = result.getJSONObject("user_details");
+                        cached.setUser_id(user_details.getString("user_id"), getApplicationContext());
+                        cached.setUser_name(user_details.getString("name"), getApplicationContext());
+                        cached.setCountry_code(user_details.getString("country_code"), getApplicationContext());
+                        cached.setContact_number(user_details.getString("contact_number"), getApplicationContext());
+                        cached.setUser_avatar(user_details.getString("avatar"), getApplicationContext());
+                        startActivity(new Intent(signin.this, home.class));
                     } else {
                         Toast.makeText(signin.this, result.getString("message"), Toast.LENGTH_SHORT).show();
                     }
