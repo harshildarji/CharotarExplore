@@ -1,12 +1,14 @@
 package com.example.harshil.charotarexplore;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,11 +18,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class signin extends AppCompatActivity {
     private EditText mobile, passwd;
     private Button signin;
     private TextView toUp;
     private AlertDialog exitDialog;
+    private String contact_number, password;
+    private ProgressDialog signingin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +77,10 @@ public class signin extends AppCompatActivity {
             }
         });
 
+        signingin = new ProgressDialog(signin.this);
+        signingin.setTitle("Signin");
+        signingin.setMessage("Authentication in progress...");
+        signingin.setCancelable(false);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +91,9 @@ public class signin extends AppCompatActivity {
                 } else if (passwd.getText().toString().equals("")) {
                     passwd.setError("Password required.");
                 } else {
-                    Toast.makeText(signin.this, "Under construction.", Toast.LENGTH_SHORT).show();
+                    contact_number = mobile.getText().toString();
+                    password = passwd.getText().toString();
+                    signinapi();
                 }
             }
         });
@@ -110,5 +133,42 @@ public class signin extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         exitDialog.show();
+    }
+
+    private void signinapi() {
+        signingin.show();
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = getResources().getString(R.string.link) + "signin";
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                signingin.dismiss();
+                try {
+                    JSONObject result = new JSONObject(response);
+                    if (result.getString("status").equals("1")) {
+                        Toast.makeText(signin.this, "Signin successfull.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(signin.this, result.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VolleyError", error.toString());
+                signingin.dismiss();
+                Toast.makeText(signin.this, "Something is wrong.", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("number", contact_number);
+                MyData.put("password", password);
+                return MyData;
+            }
+        };
+        requestQueue.add(MyStringRequest);
     }
 }
