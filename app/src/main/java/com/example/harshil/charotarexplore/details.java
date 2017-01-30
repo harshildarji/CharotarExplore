@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 public class details extends AppCompatActivity {
+    location_details location_details = new location_details();
     private String name, number, address, time, lat, lon, image;
     private ImageView rimage;
     private TextView call, direction, timing, add;
@@ -62,6 +63,14 @@ public class details extends AppCompatActivity {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:" + number));
                 startActivity(callIntent);
+            }
+        });
+        direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + location_details.getLatitude() + "," + location_details.getLongitude() + "&daddr=" + lat + "," + lon));
+                startActivity(intent);
             }
         });
         timing.setText(time);
