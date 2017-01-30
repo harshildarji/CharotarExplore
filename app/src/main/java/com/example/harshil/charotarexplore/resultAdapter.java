@@ -1,6 +1,7 @@
 package com.example.harshil.charotarexplore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +33,31 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(resultAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final resultAdapter.ViewHolder holder, final int position) {
         Glide.with(context).load(datas.get(position).getImage()).into(holder.image);
         holder.title.setText(datas.get(position).getName());
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, details.class);
+                intent.putExtra("name", datas.get(position).getName());
+                intent.putExtra("number", datas.get(position).getNumber());
+                intent.putExtra("address", datas.get(position).getAddress());
+                intent.putExtra("time", datas.get(position).getTime());
+                intent.putExtra("lat", datas.get(position).getLatitude());
+                intent.putExtra("lon", datas.get(position).getLongitude());
+                intent.putExtra("image", datas.get(position).getImage());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.image.performClick();
+            }
+        });
     }
 
     @Override

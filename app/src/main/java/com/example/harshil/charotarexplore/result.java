@@ -30,11 +30,11 @@ import java.util.Map;
 
 public class result extends AppCompatActivity {
     data data = new data();
-    private static SwipeRefreshLayout swipeRefreshLayout;
-    private static ProgressBar loading;
-    public static ArrayList<resultData> list;
-    public static RecyclerView result_view;
-    public static resultAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressBar loading;
+    public ArrayList<resultData> list;
+    public RecyclerView result_view;
+    public resultAdapter adapter;
     private GridLayoutManager gridLayoutManager;
 
     @Override
@@ -47,7 +47,6 @@ public class result extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loading = (ProgressBar) findViewById(R.id.loading);
-        loading.setVisibility(View.VISIBLE);
         result_view = (RecyclerView) findViewById(R.id.result_view);
         list = new ArrayList<>();
         resultapi();
@@ -60,7 +59,6 @@ public class result extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loading.setVisibility(View.GONE);
                 resultapi();
             }
         });
@@ -99,6 +97,7 @@ public class result extends AppCompatActivity {
                         swipeRefreshLayout.setRefreshing(false);
                     }
                     loading.setVisibility(View.GONE);
+                    result_view.setVisibility(View.VISIBLE);
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
