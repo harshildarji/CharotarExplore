@@ -13,4 +13,81 @@
     tools:context="com.example.harshil.charotarexplore.home"
     tools:showIn="@layout/app_bar_home">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:text="@string/village"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/dharmaj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textback"
+                android:padding="10dp"
+                android:tag="1"
+                android:text="@string/dharmaj"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/petlad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textback"
+                android:padding="10dp"
+                android:tag="2"
+                android:text="@string/petlad"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/vvnagar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textback"
+                android:padding="10dp"
+                android:tag="3"
+                android:text="@string/vvnagar"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/anand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textback"
+                android:padding="10dp"
+                android:tag="4"
+                android:text="@string/anand"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 </RelativeLayout>

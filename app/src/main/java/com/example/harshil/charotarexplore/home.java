@@ -60,9 +60,11 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
                     public void onClick(DialogInterface dialog, int which) {
                         cached.clearCache(getApplicationContext());
                         Intent intent = new Intent(home.this, signin.class);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        finish();
                     }
                 });
         out.setNegativeButton("No",

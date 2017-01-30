@@ -23,4 +23,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="home">Home</string>
     <string name="signout">Signout</string>
+    <string name="village">select your destination</string>
+    <string name="dharmaj">Dharmaj</string>
+    <string name="petlad">Petlad</string>
+    <string name="vvnagar">V. V. Nagar</string>
+    <string name="anand">Anand</string>
 </resources>

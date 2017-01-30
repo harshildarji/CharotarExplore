@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class signup extends AppCompatActivity {
+    cached cached = new cached();
     private EditText name, mobile, passwd, cpasswd;
     private Button signup;
     private TextView toIn;
@@ -196,7 +197,13 @@ public class signup extends AppCompatActivity {
                 try {
                     JSONObject result = new JSONObject(response);
                     if (result.getString("status").equals("1")) {
-                        Toast.makeText(signup.this, "Registration successfull.", Toast.LENGTH_SHORT).show();
+                        JSONObject user_details = result.getJSONObject("user_details");
+                        cached.setUser_id(user_details.getString("user_id"), getApplicationContext());
+                        cached.setUser_name(user_details.getString("name"), getApplicationContext());
+                        cached.setCountry_code(user_details.getString("country_code"), getApplicationContext());
+                        cached.setContact_number(user_details.getString("contact_number"), getApplicationContext());
+                        cached.setUser_avatar(user_details.getString("avatar"), getApplicationContext());
+                        startActivity(new Intent(signup.this, home.class));
                     } else {
                         Toast.makeText(signup.this, result.getString("message"), Toast.LENGTH_SHORT).show();
                     }
