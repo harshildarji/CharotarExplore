@@ -32,4 +32,5 @@
     <string name="looking">select what you are looking for</string>
     <string name="title_activity_result">result</string>
     <string name="title_activity_details">details</string>
+    <string name="share">Share app</string>
 </resources>

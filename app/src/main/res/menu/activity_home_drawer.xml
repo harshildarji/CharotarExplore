@@ -6,6 +6,10 @@
             android:id="@+id/home_page"
             android:icon="@drawable/home"
             android:title="@string/home" />
+        <item
+            android:id="@+id/share_app"
+            android:icon="@drawable/share"
+            android:title="@string/share" />
     </group>
 
 </menu>

@@ -149,6 +149,12 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         drawer.closeDrawers();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.setCheckedItem(R.id.home_page);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -157,6 +163,15 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
 
         if (id == R.id.home_page) {
             // Handle the camera action
+        } else if (id == R.id.share_app) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Charotar Explore");
+            String sAux = "New in CHAROTAR? or jsut want to explore CHAROTAR?\nDownload our app from:";
+            sAux = sAux + "https://www.google.com/";
+            i.putExtra(Intent.EXTRA_TEXT, sAux);
+            navigationView.setCheckedItem(R.id.home_page);
+            startActivity(Intent.createChooser(i, "Share app using:"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
