@@ -1,11 +1,13 @@
 package com.example.harshil.charotarexplore;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class category extends AppCompatActivity {
     data data = new data();
@@ -23,8 +25,16 @@ public class category extends AppCompatActivity {
     public void onCatClick(View view) {
         TextView village = (TextView) view;
         data.setCid(village.getTag().toString());
-        //startActivity(new Intent(category.this, results.class));
-        Toast.makeText(category.this, data.getVid() + " | " + data.getCid(), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(category.this, result.class));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

@@ -14,12 +14,13 @@
         android:src="@drawable/sample" />
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="Hotel"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="40sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

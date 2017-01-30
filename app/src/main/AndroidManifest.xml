@@ -59,6 +59,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.harshil.charotarexplore.home" />
         </activity>
+        <activity
+            android:name=".result"
+            android:label="@string/title_activity_result"
+            android:parentActivityName=".category"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.harshil.charotarexplore.category" />
+        </activity>
     </application>
 
 </manifest>
