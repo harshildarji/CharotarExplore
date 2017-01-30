@@ -28,4 +28,6 @@
     <string name="petlad">Petlad</string>
     <string name="vvnagar">V. V. Nagar</string>
     <string name="anand">Anand</string>
+    <string name="title_activity_category">category</string>
+    <string name="looking">select what you are looking for</string>
 </resources>

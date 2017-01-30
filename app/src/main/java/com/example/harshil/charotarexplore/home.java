@@ -25,6 +25,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 public class home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     cached cached = new cached();
+    data data = new data();
     private AlertDialog exitDialog, outDialog;
     private TextView user_name;
     private ImageView avatar;
@@ -161,5 +162,11 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onCatClick(View view) {
+        TextView village = (TextView) view;
+        data.setVid(village.getTag().toString());
+        startActivity(new Intent(home.this, category.class));
     }
 }
