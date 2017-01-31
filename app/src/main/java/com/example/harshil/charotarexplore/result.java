@@ -174,17 +174,17 @@ public class result extends AppCompatActivity {
                             if (from.equals("category")) {
                                 if (favorites_array != null && favorites_array.length > 0) {
                                     if (!Arrays.asList(favorites_array).contains(jsonObject.getString("id"))) {
-                                        resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
+                                        resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), jsonObject.getString("image"));
                                         list.add(resultData);
                                     }
                                 } else {
-                                    resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
+                                    resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), jsonObject.getString("image"));
                                     list.add(resultData);
                                 }
                             } else {
                                 if (favorites_array != null && favorites_array.length > 0) {
                                     if (Arrays.asList(favorites_array).contains(jsonObject.getString("id"))) {
-                                        resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
+                                        resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), jsonObject.getString("image"));
                                         list.add(resultData);
                                     }
                                 }

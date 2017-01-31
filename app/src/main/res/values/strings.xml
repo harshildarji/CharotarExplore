@@ -17,7 +17,6 @@
     <string name="sinw">SIGN INTO</string>
     <string name="supw">REGISTER WITH</string>
     <string name="link">http://192.168.43.245/CharotarExplore/api/</string>
-    <string name="image_link">http://192.168.43.245/CharotarExplore/images/</string>
     <string name="title_activity_home">home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
