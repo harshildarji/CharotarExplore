@@ -33,4 +33,5 @@
     <string name="title_activity_result">result</string>
     <string name="title_activity_details">details</string>
     <string name="share">Share app</string>
+    <string name="favorite">Favorites</string>
 </resources>

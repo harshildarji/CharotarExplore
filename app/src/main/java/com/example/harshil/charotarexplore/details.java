@@ -81,7 +81,7 @@ public class details extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -89,6 +89,6 @@ public class details extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        finish();
     }
 }

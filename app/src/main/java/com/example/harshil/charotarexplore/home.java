@@ -163,6 +163,10 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
 
         if (id == R.id.home_page) {
             // Handle the camera action
+        } else if (id == R.id.favorite) {
+            Intent intent = new Intent(home.this, result.class);
+            intent.putExtra("from", "home");
+            startActivity(intent);
         } else if (id == R.id.share_app) {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");

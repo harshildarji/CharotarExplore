@@ -1,7 +1,6 @@
 package com.example.harshil.charotarexplore;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,10 +24,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class result extends AppCompatActivity {
+    cached cached = new cached();
     data data = new data();
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar loading;
@@ -36,6 +37,8 @@ public class result extends AppCompatActivity {
     public RecyclerView result_view;
     public resultAdapter adapter;
     private GridLayoutManager gridLayoutManager;
+    private String[] favorites_array;
+    public static String from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +46,18 @@ public class result extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Search result");
+        if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("home")) {
+            from = "home";
+            getSupportActionBar().setTitle("Favorites");
+        } else {
+            from = "category";
+            getSupportActionBar().setTitle("Search result");
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loading = (ProgressBar) findViewById(R.id.loading);
         result_view = (RecyclerView) findViewById(R.id.result_view);
         list = new ArrayList<>();
-        resultapi();
         gridLayoutManager = new GridLayoutManager(this, 1);
         result_view.setLayoutManager(gridLayoutManager);
         adapter = new resultAdapter(result.this, list);
@@ -59,25 +67,73 @@ public class result extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                resultapi();
+                favoritesapi();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        favoritesapi();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void favoritesapi() {
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = getResources().getString(R.string.link) + "getFav";
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject result = new JSONObject(response);
+                    if (result.getString("status").equals("1")) {
+                        JSONArray favorites = result.getJSONArray("favorites");
+                        favorites_array = new String[favorites.length()];
+                        for (int i = 0; i < favorites.length(); i++) {
+                            JSONObject favorite = favorites.getJSONObject(i);
+                            favorites_array[i] = favorite.getString("result_id");
+                        }
+                    }
+                    resultapi();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VolleyError", error.toString());
+                loading.setVisibility(View.GONE);
+                Toast.makeText(result.this, "Something is wrong.", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                MyData.put("uid", cached.getUser_id(getApplicationContext()));
+                return MyData;
+            }
+        };
+        requestQueue.add(MyStringRequest);
+    }
+
     private void resultapi() {
         list.clear();
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = getResources().getString(R.string.link) + "result";
+        String url;
+        if (from.equals("category"))
+            url = getResources().getString(R.string.link) + "result";
+        else
+            url = getResources().getString(R.string.link) + "getAllresults";
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -87,12 +143,40 @@ public class result extends AppCompatActivity {
                         JSONArray results = result.getJSONArray("results");
                         for (int i = 0; i < results.length(); i++) {
                             JSONObject jsonObject = results.getJSONObject(i);
-                            resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
-                            list.add(resultData);
+                            if (from.equals("category")) {
+                                if (favorites_array.length > 0) {
+                                    if (!Arrays.asList(favorites_array).contains(jsonObject.getString("id"))) {
+                                        resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
+                                        list.add(resultData);
+                                    }
+                                } else {
+                                    resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
+                                    list.add(resultData);
+                                }
+                            } else {
+                                if (favorites_array.length > 0) {
+                                    if (Arrays.asList(favorites_array).contains(jsonObject.getString("id"))) {
+                                        resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
+                                        list.add(resultData);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (list.size() > 0) {
+                        if (from.equals("category")) {
+                            Toast.makeText(result.this, list.size() + " results found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(result.this, list.size() + " favorites found", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(result.this, result.getString("message"), Toast.LENGTH_SHORT).show();
+                        if (from.equals("category")) {
+                            Toast.makeText(result.this, "No results found.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(result.this, "You have no favorites.", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
                     if (swipeRefreshLayout.isRefreshing()) {
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -115,7 +199,9 @@ public class result extends AppCompatActivity {
                 Map<String, String> MyData = new HashMap<String, String>();
                 MyData.put("vid", data.getVid());
                 MyData.put("cid", data.getCid());
-                return MyData;
+                if (from.equals("category"))
+                    return MyData;
+                return null;
             }
         };
         requestQueue.add(MyStringRequest);
