@@ -14,6 +14,10 @@
             android:id="@+id/share_app"
             android:icon="@drawable/share"
             android:title="@string/share" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/about"
+            android:title="@string/about" />
     </group>
 
 </menu>

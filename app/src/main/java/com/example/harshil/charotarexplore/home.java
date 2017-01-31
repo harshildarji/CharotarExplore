@@ -1,6 +1,7 @@
 package com.example.harshil.charotarexplore;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,7 +43,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Dialog.OnCancelListener {
     cached cached = new cached();
     data data = new data();
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -229,11 +230,22 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
             i.putExtra(Intent.EXTRA_TEXT, sAux);
             navigationView.setCheckedItem(R.id.home_page);
             startActivity(Intent.createChooser(i, "Share app using:"));
+        } else if (id == R.id.about) {
+            final Dialog dialog = new Dialog(home.this);
+            dialog.setContentView(R.layout.about);
+            dialog.setCancelable(true);
+            dialog.setOnCancelListener(home.this);
+            dialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        navigationView.setCheckedItem(R.id.home_page);
     }
 
     public void onCatClick(View view) {
