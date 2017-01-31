@@ -1,5 +1,6 @@
 package com.example.harshil.charotarexplore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -82,10 +83,21 @@ public class result extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                if (from.equals("home"))
+                    startActivity(new Intent(result.this, home.class));
+                else if (from.equals("category"))
+                    startActivity(new Intent(result.this, category.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (from.equals("home"))
+            startActivity(new Intent(result.this, home.class));
+        else if (from.equals("category"))
+            startActivity(new Intent(result.this, category.class));
     }
 
     private void favoritesapi() {
@@ -104,10 +116,10 @@ public class result extends AppCompatActivity {
                             favorites_array[i] = favorite.getString("result_id");
                         }
                     }
-                    resultapi();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                resultapi();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -144,7 +156,7 @@ public class result extends AppCompatActivity {
                         for (int i = 0; i < results.length(); i++) {
                             JSONObject jsonObject = results.getJSONObject(i);
                             if (from.equals("category")) {
-                                if (favorites_array.length > 0) {
+                                if (favorites_array != null && favorites_array.length > 0) {
                                     if (!Arrays.asList(favorites_array).contains(jsonObject.getString("id"))) {
                                         resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
                                         list.add(resultData);
@@ -154,7 +166,7 @@ public class result extends AppCompatActivity {
                                     list.add(resultData);
                                 }
                             } else {
-                                if (favorites_array.length > 0) {
+                                if (favorites_array != null && favorites_array.length > 0) {
                                     if (Arrays.asList(favorites_array).contains(jsonObject.getString("id"))) {
                                         resultData resultData = new resultData(jsonObject.getString("id"), jsonObject.getString("name"), jsonObject.getString("number"), jsonObject.getString("address"), jsonObject.getString("time"), jsonObject.getString("latitude"), jsonObject.getString("longitude"), getResources().getString(R.string.image_link) + jsonObject.getString("image"));
                                         list.add(resultData);
