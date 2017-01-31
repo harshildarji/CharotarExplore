@@ -1,6 +1,10 @@
 package com.example.harshil.charotarexplore;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,14 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 public class details extends AppCompatActivity {
     location_details location_details = new location_details();
+    private MediaPlayer mediaPlayer;
     private String name, number, address, time, lat, lon, image;
-    private ImageView rimage;
+    private ImageView rimage, fav;
     private TextView call, direction, timing, add;
+    ColorFilter white = new LightingColorFilter(Color.parseColor("#ffffff"), Color.parseColor("#ffffff"));
+    ColorFilter red = new LightingColorFilter(Color.parseColor("#ff0000"), Color.parseColor("#ff0000"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,7 @@ public class details extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mediaPlayer = MediaPlayer.create(this, R.raw.favorite);
 
         name = getIntent().getStringExtra("name");
         number = getIntent().getStringExtra("number");
@@ -51,12 +60,30 @@ public class details extends AppCompatActivity {
         });
 
         rimage = (ImageView) findViewById(R.id.rimage);
+        fav = (ImageView) findViewById(R.id.fav);
+        if (result.from.equals("home"))
+            fav.setColorFilter(red);
+        else
+            fav.setColorFilter(white);
         call = (TextView) findViewById(R.id.call);
         direction = (TextView) findViewById(R.id.direction);
         timing = (TextView) findViewById(R.id.timing);
         add = (TextView) findViewById(R.id.add);
 
         Glide.with(details.this).load(image).into(rimage);
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fav.getColorFilter() == red) {
+                    fav.setColorFilter(white);
+                    Toast.makeText(details.this, "Removed from favorites.", Toast.LENGTH_SHORT).show();
+                } else if (fav.getColorFilter() == white) {
+                    mediaPlayer.start();
+                    fav.setColorFilter(red);
+                    Toast.makeText(details.this, "Added to favorites.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
