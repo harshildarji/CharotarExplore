@@ -154,7 +154,7 @@ public class details extends AppCompatActivity {
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(details.this, "Added to favorites.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(details.this, "Added to favourites.", Toast.LENGTH_SHORT).show();
                 favorite.dismiss();
             }
         }, new Response.ErrorListener() {
@@ -181,7 +181,7 @@ public class details extends AppCompatActivity {
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(details.this, "Removed from favorites.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(details.this, "Removed from favourites.", Toast.LENGTH_SHORT).show();
                 favorite.dismiss();
             }
         }, new Response.ErrorListener() {

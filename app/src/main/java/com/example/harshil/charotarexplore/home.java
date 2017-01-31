@@ -38,6 +38,9 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -176,7 +179,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void displayAvatar() {
-        Glide.with(home.this).load(decodeStringImage(cached.getUser_avatar(getApplicationContext()))).asBitmap().centerCrop().error(R.drawable.face).into(new BitmapImageViewTarget(avatar) {
+        Glide.with(home.this).load(cached.getUser_avatar(getApplicationContext())).asBitmap().centerCrop().error(R.drawable.face).into(new BitmapImageViewTarget(avatar) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -308,12 +311,6 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         uploadimageapi(encodedImage);
     }
 
-    public byte[] decodeStringImage(String encodedImage) {
-        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
-        //Bitmap decodedImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        return decodedString;
-    }
-
     public void uploadimageapi(String encodedImage) {
         final String avatar = encodedImage;
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -322,7 +319,12 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public void onResponse(String response) {
                 uploading.dismiss();
-                cached.setUser_avatar(avatar, getApplicationContext());
+                try {
+                    if (new JSONObject(response).getString("status").equals("1"))
+                        cached.setUser_avatar(new JSONObject(response).getString("avatar_link"), getApplicationContext());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 displayAvatar();
                 Toast.makeText(home.this, "Avatar successfully uploaded.", Toast.LENGTH_SHORT).show();
             }

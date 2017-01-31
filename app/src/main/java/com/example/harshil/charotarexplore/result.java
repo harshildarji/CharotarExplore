@@ -51,7 +51,7 @@ public class result extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("home")) {
             from = "home";
-            getSupportActionBar().setTitle("Favorites");
+            getSupportActionBar().setTitle("Favourites");
         } else {
             from = "category";
             getSupportActionBar().setTitle("Search result");
@@ -195,13 +195,13 @@ public class result extends AppCompatActivity {
                         if (from.equals("category")) {
                             Toast.makeText(result.this, list.size() + " results found", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(result.this, list.size() + " favorites found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(result.this, list.size() + " favourites found", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         if (from.equals("category")) {
                             Toast.makeText(result.this, "No results found.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(result.this, "You have no favorites.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(result.this, "You have no favourites.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
