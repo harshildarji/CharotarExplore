@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -179,6 +180,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void displayAvatar() {
+        Log.e("IMAGE_LINK", cached.getUser_avatar(getApplicationContext()));
         Glide.with(home.this).load(cached.getUser_avatar(getApplicationContext())).asBitmap().centerCrop().error(R.drawable.face).into(new BitmapImageViewTarget(avatar) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -238,6 +240,15 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
             dialog.setContentView(R.layout.about);
             dialog.setCancelable(true);
             dialog.setOnCancelListener(home.this);
+            final TextView contact = (TextView) dialog.findViewById(R.id.contactus);
+            contact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse("tel:" + contact.getText().toString()));
+                    startActivity(callIntent);
+                }
+            });
             dialog.show();
         }
 

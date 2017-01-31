@@ -40,14 +40,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Developed by:"
+        android:text="Contact us:"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/contactus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Vaibhav Rana\nSmit Patel"
+        android:text="7600740690"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold" />

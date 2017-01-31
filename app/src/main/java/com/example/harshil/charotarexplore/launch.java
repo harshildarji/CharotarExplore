@@ -73,10 +73,6 @@ public class launch extends BaseLocationActivity {
                 }).setCancelable(false);
         locationDialog = location.create();
 
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        receiver = new NetworkChangeReceiver();
-        registerReceiver(receiver, filter);
-
         locationReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -118,6 +114,9 @@ public class launch extends BaseLocationActivity {
         };
         registerReceiver(broadcastReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
         registerReceiver(locationReceiver, new IntentFilter(BROADCAST));
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkChangeReceiver();
+        registerReceiver(receiver, filter);
     }
 
     @Override
