@@ -60,6 +60,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
     private Button signout;
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private String link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home");
+        getlinkapi();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -230,8 +232,8 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_SUBJECT, "Charotar Explore");
-            String sAux = "New in CHAROTAR? or jsut want to explore CHAROTAR?\nDownload our app from:";
-            sAux = sAux + "https://www.google.com/";
+            String sAux = "New in CHAROTAR? or jsut want to explore CHAROTAR?\nDownload our app from:\n";
+            sAux = sAux + link;
             i.putExtra(Intent.EXTRA_TEXT, sAux);
             navigationView.setCheckedItem(R.id.home_page);
             startActivity(Intent.createChooser(i, "Share app using:"));
@@ -354,6 +356,30 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
                 return MyData;
             }
         };
+        requestQueue.add(MyStringRequest);
+    }
+
+    public void getlinkapi() {
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = getResources().getString(R.string.link) + "getLink";
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    if (new JSONObject(response).getString("status").equals("1"))
+                        link = new JSONObject(response).getString("link");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VolleyError", error.toString());
+                uploading.dismiss();
+                Toast.makeText(home.this, "Something is wrong.", Toast.LENGTH_SHORT).show();
+            }
+        });
         requestQueue.add(MyStringRequest);
     }
 }

@@ -54,6 +54,7 @@ public class details extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         name = getIntent().getStringExtra("name");
         number = getIntent().getStringExtra("number");
+        number = number.trim().replace(" ", "");
         address = getIntent().getStringExtra("address");
         time = getIntent().getStringExtra("time");
         lat = getIntent().getStringExtra("lat");
@@ -120,8 +121,8 @@ public class details extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        timing.setText(time);
-        add.setText(address);
+        timing.setText(time.trim());
+        add.setText(address.trim());
     }
 
     @Override

@@ -56,7 +56,6 @@ public class result extends AppCompatActivity {
             from = "category";
             getSupportActionBar().setTitle("Search result");
         }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loading = (ProgressBar) findViewById(R.id.loading);
         result_view = (RecyclerView) findViewById(R.id.result_view);
@@ -91,11 +90,6 @@ public class result extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                if (from.equals("home"))
-                    startActivity(new Intent(result.this, home.class));
-                else if (from.equals("category"))
-                    startActivity(new Intent(result.this, category.class));
             case R.id.toHome:
                 Intent intent = new Intent(result.this, home.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
@@ -110,9 +104,9 @@ public class result extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (from.equals("home"))
+        if (result.from.equals("home"))
             startActivity(new Intent(result.this, home.class));
-        else if (from.equals("category"))
+        else if (result.from.equals("category"))
             startActivity(new Intent(result.this, category.class));
     }
 
