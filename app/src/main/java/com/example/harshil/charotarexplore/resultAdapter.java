@@ -44,6 +44,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, details.class);
                 intent.putExtra("id", datas.get(position).getId());
+                intent.putExtra("catid", datas.get(position).getCatid());
                 intent.putExtra("name", datas.get(position).getName());
                 intent.putExtra("number", datas.get(position).getNumber());
                 intent.putExtra("address", datas.get(position).getAddress());

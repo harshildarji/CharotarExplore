@@ -1,6 +1,7 @@
 package com.example.harshil.charotarexplore;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -8,6 +9,7 @@ import android.graphics.LightingColorFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,10 +35,11 @@ import java.util.Map;
 public class details extends AppCompatActivity {
     cached cached = new cached();
     location_details location_details = new location_details();
+    private AlertDialog rates;
     private MediaPlayer mediaPlayer;
     private ProgressDialog favorite;
-    private String id, name, number, address, time, lat, lon, image;
-    private ImageView rimage, fav;
+    private String id, catid, name, number, address, time, lat, lon, image;
+    private ImageView rimage, fav, more;
     private TextView call, direction, timing, add;
     ColorFilter white = new LightingColorFilter(Color.parseColor("#ffffff"), Color.parseColor("#ffffff"));
     ColorFilter red = new LightingColorFilter(Color.parseColor("#ff0000"), Color.parseColor("#ff0000"));
@@ -52,6 +55,7 @@ public class details extends AppCompatActivity {
         favorite.setTitle("Favorite");
 
         id = getIntent().getStringExtra("id");
+        catid = getIntent().getStringExtra("catid");
         name = getIntent().getStringExtra("name");
         number = getIntent().getStringExtra("number");
         number = number.trim().replace(" ", "");
@@ -73,6 +77,7 @@ public class details extends AppCompatActivity {
         direction = (TextView) findViewById(R.id.direction);
         timing = (TextView) findViewById(R.id.timing);
         add = (TextView) findViewById(R.id.add);
+        more = (ImageView) findViewById(R.id.more);
 
         Glide.with(details.this).load(image).into(rimage);
         fav.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +115,28 @@ public class details extends AppCompatActivity {
         });
         timing.setText(time.trim());
         add.setText(address.trim());
+
+        if (catid.equals("2")) {
+            more.setVisibility(View.VISIBLE);
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(details.this);
+        builder.setCancelable(true);
+        builder.setTitle("Rates");
+        builder.setMessage("Inflation: 7.50\nBank rate: 6.75%\nCRR: 4.000%\nSLR: 20.50%\nRepo rate: 6.25%\nReverse repo rate: 5.75%\nMarginal Standing facility rate: 6.75%");
+        builder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        rates.dismiss();
+                    }
+                });
+        rates = builder.create();
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rates.show();
+            }
+        });
     }
 
     @Override
