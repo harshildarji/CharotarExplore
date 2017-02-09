@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class signup extends AppCompatActivity {
+    private static final Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}");
     cached cached = new cached();
     private EditText name, mobile, passwd, cpasswd;
     private Button signup;
@@ -114,6 +115,8 @@ public class signup extends AppCompatActivity {
                     mobile.setError("10 digit number required.");
                 } else if (passwd.getText().toString().equals("")) {
                     passwd.setError("Password required.");
+                } else if (!isPasswordValid(passwd.getText().toString())) {
+                    Toast.makeText(signup.this, "Password must be 8-16 characters long with at least 1 uppercase, 1 lowercase, 1 number and 1 special character in it.", Toast.LENGTH_LONG).show();
                 } else if (!isPasswordMatching(passwd.getText().toString(), cpasswd.getText().toString())) {
                     cpasswd.setError("Password does not match.");
                 } else {
@@ -156,6 +159,10 @@ public class signup extends AppCompatActivity {
                     }
                 }).setCancelable(true);
         exitDialog = exit.create();
+    }
+
+    private boolean isPasswordValid(CharSequence s) {
+        return pattern.matcher(s).matches();
     }
 
     public boolean isPasswordMatching(String password, String confirmPassword) {

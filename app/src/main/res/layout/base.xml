@@ -6,6 +6,15 @@
     android:background="@drawable/textback"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -13,14 +22,28 @@
         android:scaleType="centerCrop"
         android:src="@drawable/sample" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Hotel"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="20sp" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center"
+            android:src="@drawable/distance" />
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textAlignment="gravity"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -33,4 +33,12 @@
     <string name="share">Share app</string>
     <string name="favorite">Favourites</string>
     <string name="about">About</string>
+    <string name="away">KMs</string>
+    <string name="type">Type</string>
+    <string name="kathyavadi">Kathiyavadi</string>
+    <string name="punjabi">Punjabi</string>
+    <string name="mexican">Mexican</string>
+    <string name="chinese">Chinese</string>
+    <string name="si">South Indian</string>
+    <string name="gujarati">Gujarati</string>
 </resources>

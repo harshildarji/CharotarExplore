@@ -2,6 +2,7 @@ package com.example.harshil.charotarexplore;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 
 public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder> {
+    location_details location_details = new location_details();
     private Context context;
     private List<resultData> datas;
 
@@ -59,6 +61,17 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder
                 holder.image.performClick();
             }
         });
+
+        Location startPoint = new Location("user_location");
+        startPoint.setLatitude(Double.parseDouble(location_details.getLatitude()));
+        startPoint.setLongitude(Double.parseDouble(location_details.getLongitude()));
+
+        Location endPoint = new Location("destination_location");
+        endPoint.setLatitude(Double.parseDouble(datas.get(position).getLatitude()));
+        endPoint.setLongitude(Double.parseDouble(datas.get(position).getLongitude()));
+
+        String distance = String.valueOf((int) startPoint.distanceTo(endPoint) / 1000) + " " + context.getResources().getString(R.string.away);
+        holder.distance.setText(distance);
     }
 
     @Override
@@ -68,12 +81,13 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
-        private TextView title;
+        private TextView title, distance;
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
+            distance = (TextView) itemView.findViewById(R.id.distance);
         }
     }
 }
