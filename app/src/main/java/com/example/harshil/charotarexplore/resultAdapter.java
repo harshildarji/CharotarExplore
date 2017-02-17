@@ -1,5 +1,6 @@
 package com.example.harshil.charotarexplore;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -53,6 +54,23 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder
                 intent.putExtra("lon", datas.get(position).getLongitude());
                 intent.putExtra("image", datas.get(position).getImage());
                 context.startActivity(intent);
+            }
+        });
+
+        final Dialog popup = new Dialog(context);
+        popup.setContentView(R.layout.popup);
+        popup.setCancelable(true);
+        final TextView popname = (TextView) popup.findViewById(R.id.popname);
+        final ImageView popimage = (ImageView) popup.findViewById(R.id.popimage);
+        final TextView popadd = (TextView) popup.findViewById(R.id.popadd);
+        holder.image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                popname.setText(datas.get(position).getName());
+                Glide.with(context).load(datas.get(position).getImage()).into(popimage);
+                popadd.setText(datas.get(position).getAddress());
+                popup.show();
+                return false;
             }
         });
 
