@@ -237,6 +237,8 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
             i.putExtra(Intent.EXTRA_TEXT, sAux);
             navigationView.setCheckedItem(R.id.home_page);
             startActivity(Intent.createChooser(i, "Share app using:"));
+        } else if (id == R.id.feedback) {
+            startActivity(new Intent(home.this, feedback.class));
         } else if (id == R.id.about) {
             final Dialog dialog = new Dialog(home.this);
             dialog.setContentView(R.layout.about);
