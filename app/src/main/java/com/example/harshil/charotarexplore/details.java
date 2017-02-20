@@ -9,6 +9,7 @@ import android.graphics.LightingColorFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +42,7 @@ public class details extends AppCompatActivity {
     private String id, catid, name, number, address, time, lat, lon, image;
     private ImageView rimage, fav, more;
     private TextView call, direction, timing, add;
+    private FloatingActionButton shareIt;
     ColorFilter white = new LightingColorFilter(Color.parseColor("#ffffff"), Color.parseColor("#ffffff"));
     ColorFilter red = new LightingColorFilter(Color.parseColor("#ff0000"), Color.parseColor("#ff0000"));
 
@@ -135,6 +137,19 @@ public class details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 rates.show();
+            }
+        });
+
+        shareIt = (FloatingActionButton) findViewById(R.id.shareIt);
+        shareIt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, name);
+                String sAux = "Hey! Check-out " + name + " at:\nhttps://maps.google.com/?q=" + lat + "," + lon + "\n(or Contact them using: " + number + ")";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "Share app using:"));
             }
         });
     }
