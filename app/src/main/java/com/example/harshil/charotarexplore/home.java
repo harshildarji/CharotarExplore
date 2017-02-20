@@ -244,13 +244,30 @@ public class home extends AppCompatActivity implements NavigationView.OnNavigati
             dialog.setContentView(R.layout.about);
             dialog.setCancelable(true);
             dialog.setOnCancelListener(home.this);
-            final TextView contact = (TextView) dialog.findViewById(R.id.contactus);
-            contact.setOnClickListener(new View.OnClickListener() {
+            final ImageView google = (ImageView) dialog.findViewById(R.id.google);
+            final ImageView facebook = (ImageView) dialog.findViewById(R.id.facebook);
+            final ImageView whatsapp = (ImageView) dialog.findViewById(R.id.whatsapp);
+            google.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent.setData(Uri.parse("tel:" + contact.getText().toString()));
-                    startActivity(callIntent);
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/100231424752185228919"));
+                    startActivity(browserIntent);
+                }
+            });
+            facebook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/Charotar-Explore-379052232473752/"));
+                    startActivity(browserIntent);
+                }
+            });
+            whatsapp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri = Uri.parse("smsto:917600657590");
+                    Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+                    i.setPackage("com.whatsapp");
+                    startActivity(Intent.createChooser(i, ""));
                 }
             });
             dialog.show();
