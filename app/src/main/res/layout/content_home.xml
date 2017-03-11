@@ -83,6 +83,20 @@
                 android:textColor="#ffffff"
                 android:textSize="25sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textback"
+                android:onClick="onCatClick"
+                android:padding="10dp"
+                android:tag="5"
+                android:text="@string/khambhat"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+
         </LinearLayout>
 
     </ScrollView>

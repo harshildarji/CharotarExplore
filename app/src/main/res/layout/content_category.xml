@@ -8,186 +8,348 @@
     tools:context="com.example.harshil.charotarexplore.category"
     tools:showIn="@layout/activity_category">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="@string/looking"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/restaurant"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="1"
-                android:text="Restaurant"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
+                android:weightSum="3">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/bank"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="2"
-                android:text="Bank"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/restaurant"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="1"
+                    android:text="Restaurant"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
 
-            <TextView
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/bank"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="2"
+                    android:text="Bank"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/atm"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="3"
+                    android:text="ATM"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/atm"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="3"
-                android:text="ATM"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/hospital"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="4"
+                    android:text="Hospital"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/movie"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="5"
+                    android:text="Movie"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/gym"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="6"
+                    android:text="Gym"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/pool"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="7"
+                    android:text="Pool"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/bus"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="8"
+                    android:text="Bus station"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/railway"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="9"
+                    android:text="Railway"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/school"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="10"
+                    android:text="School"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/temple"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="11"
+                    android:text="Temple"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/barber"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="13"
+                    android:text="Barber"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/garage"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="14"
+                    android:text="Garage"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/pump"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="15"
+                    android:text="Petrol pump"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/courier"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="16"
+                    android:text="Courier"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/book"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="17"
+                    android:text="Book store"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/farm"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="18"
+                    android:text="Poultry farm"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/textback"
+                    android:drawablePadding="10dp"
+                    android:drawableTop="@drawable/popular"
+                    android:onClick="onCatClick"
+                    android:padding="10dp"
+                    android:tag="12"
+                    android:text="Popular"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/hospital"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="4"
-                android:text="Hospital"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/movie"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="5"
-                android:text="Movie"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/gym"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="6"
-                android:text="Gym"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/pool"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="7"
-                android:text="Pool"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/bus"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="8"
-                android:text="Bus station"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/textback"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/railway"
-                android:onClick="onCatClick"
-                android:padding="10dp"
-                android:tag="9"
-                android:text="Railway"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="normal|bold" />
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <!--
     <LinearLayout

@@ -23,7 +23,7 @@ public class category extends AppCompatActivity {
         setContentView(R.layout.activity_category);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Category");
+        getSupportActionBar().setTitle("Select a category");
 
         dialog = new Dialog(category.this);
         dialog.setContentView(R.layout.hotel);
