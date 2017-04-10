@@ -39,9 +39,9 @@ public class details extends AppCompatActivity {
     private AlertDialog rates;
     private MediaPlayer mediaPlayer;
     private ProgressDialog favorite;
-    private String id, catid, name, number, address, time, lat, lon, image;
+    private String id, catid, name, number, address, time, lat, lon, image, site;
     private ImageView rimage, fav, more;
-    private TextView call, direction, timing, add;
+    private TextView call, direction, timing, add, siteic;
     private FloatingActionButton shareIt;
     ColorFilter white = new LightingColorFilter(Color.parseColor("#ffffff"), Color.parseColor("#ffffff"));
     ColorFilter red = new LightingColorFilter(Color.parseColor("#ff0000"), Color.parseColor("#ff0000"));
@@ -66,6 +66,9 @@ public class details extends AppCompatActivity {
         lat = getIntent().getStringExtra("lat");
         lon = getIntent().getStringExtra("lon");
         image = getIntent().getStringExtra("image");
+        site = getIntent().getStringExtra("site");
+        if (!site.startsWith("http://") && !site.startsWith("https://"))
+            site = "http://" + site;
 
         getSupportActionBar().setTitle(name);
 
@@ -80,6 +83,7 @@ public class details extends AppCompatActivity {
         timing = (TextView) findViewById(R.id.timing);
         add = (TextView) findViewById(R.id.add);
         more = (ImageView) findViewById(R.id.more);
+        siteic = (TextView) findViewById(R.id.site);
 
         Glide.with(details.this).load(image).into(rimage);
         fav.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +143,13 @@ public class details extends AppCompatActivity {
                 rates.show();
             }
         });
+        siteic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(site));
+                startActivity(browserIntent);
+            }
+        });
 
         shareIt = (FloatingActionButton) findViewById(R.id.shareIt);
         shareIt.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +160,7 @@ public class details extends AppCompatActivity {
                 i.putExtra(Intent.EXTRA_SUBJECT, name);
                 String sAux = "Hey! Check-out " + name + " at:\nhttps://maps.google.com/?q=" + lat + "," + lon + "\n(or Contact them using: " + number + ")";
                 i.putExtra(Intent.EXTRA_TEXT, sAux);
-                startActivity(Intent.createChooser(i, "Share app using:"));
+                startActivity(Intent.createChooser(i, "Share using:"));
             }
         });
     }

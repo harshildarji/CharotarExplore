@@ -53,6 +53,7 @@ public class resultAdapter extends RecyclerView.Adapter<resultAdapter.ViewHolder
                 intent.putExtra("lat", datas.get(position).getLatitude());
                 intent.putExtra("lon", datas.get(position).getLongitude());
                 intent.putExtra("image", datas.get(position).getImage());
+                intent.putExtra("site", datas.get(position).getSite());
                 context.startActivity(intent);
             }
         });

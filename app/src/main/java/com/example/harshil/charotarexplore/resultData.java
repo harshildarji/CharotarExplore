@@ -5,9 +5,9 @@ package com.example.harshil.charotarexplore;
  */
 
 public class resultData {
-    private String id, name, number, address, time, latitude, longitude, image, catid;
+    private String id, name, number, address, time, latitude, longitude, image, catid, site;
 
-    public resultData(String id, String name, String number, String address, String time, String latitude, String longitude, String image, String catid) {
+    public resultData(String id, String name, String number, String address, String time, String latitude, String longitude, String image, String catid, String site) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -17,6 +17,7 @@ public class resultData {
         this.longitude = longitude;
         this.image = image;
         this.catid = catid;
+        this.site = site;
     }
 
     public String getId() {
@@ -53,5 +54,9 @@ public class resultData {
 
     public String getCatid() {
         return catid;
+    }
+
+    public String getSite() {
+        return site;
     }
 }
