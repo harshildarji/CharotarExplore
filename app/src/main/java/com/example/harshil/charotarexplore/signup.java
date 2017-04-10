@@ -40,7 +40,7 @@ public class signup extends AppCompatActivity {
     private EditText name, mobile, passwd, cpasswd;
     private Button signup;
     private TextView toIn;
-    private AlertDialog exitDialog;
+    private AlertDialog exitDialog, inDialog;
     private String user_name, contact_number, password, country_code;
     private ProgressDialog signingup;
 
@@ -159,6 +159,19 @@ public class signup extends AppCompatActivity {
                     }
                 }).setCancelable(true);
         exitDialog = exit.create();
+
+        AlertDialog.Builder in = new AlertDialog.Builder(signup.this);
+        in.setTitle("Signup");
+        in.setMessage("Registration successfull.\nClikc Ok to visit Login page.");
+        in.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(signup.this, signin.class));
+                    }
+                });
+        in.setCancelable(false);
+        inDialog = in.create();
     }
 
     private boolean isPasswordValid(CharSequence s) {
@@ -204,13 +217,7 @@ public class signup extends AppCompatActivity {
                 try {
                     JSONObject result = new JSONObject(response);
                     if (result.getString("status").equals("1")) {
-                        JSONObject user_details = result.getJSONObject("user_details");
-                        cached.setUser_id(user_details.getString("user_id"), getApplicationContext());
-                        cached.setUser_name(user_details.getString("name"), getApplicationContext());
-                        cached.setCountry_code(user_details.getString("country_code"), getApplicationContext());
-                        cached.setContact_number(user_details.getString("contact_number"), getApplicationContext());
-                        cached.setUser_avatar(user_details.getString("avatar"), getApplicationContext());
-                        startActivity(new Intent(signup.this, home.class));
+                        inDialog.show();
                     } else {
                         Toast.makeText(signup.this, result.getString("message"), Toast.LENGTH_SHORT).show();
                     }
